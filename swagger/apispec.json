@@ -1,0 +1,912 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Kontrak API HR",
+    "description": "Kontrak API HR",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://{api_env}.hr.com/",
+      "variables": {
+        "api_env": {
+          "default": "api",
+          "description": "API Environment",
+          "enum": [
+            "dev",
+            "api",
+            "staging"
+          ]
+        }
+      }
+    }
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "description": "Create User",
+        "summary": "Create User",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nik": {
+                    "type": "string"
+                  },
+                  "nama_karyawan": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "cabang_id": {
+                    "type": "integer"
+                  },
+                  "active": {
+                    "type": "boolean"
+                  },
+                  "alamat": {
+                    "type": "string"
+                  },
+                  "telepon": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success Create User",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/UserDetail"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "description": "Find User All",
+        "summary": "Find User All",
+        "responses": {
+          "200": {
+            "description": "Success Find User All",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "list": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/UserDetail"
+                          }
+                        },
+                        "row_count": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "description": "Find User By Id",
+        "summary": "Find User By Id",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "userId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success Find User By Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/UserDetail"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "description": "Update User",
+        "summary": "Update User",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "userId"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nik": {
+                    "type": "string"
+                  },
+                  "nama_karyawan": {
+                    "type": "string"
+                  },
+                  "cabang_id": {
+                    "type": "integer"
+                  },
+                  "active": {
+                    "type": "boolean"
+                  },
+                  "alamat": {
+                    "type": "string"
+                  },
+                  "telepon": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success Update User",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/UserDetail"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/email": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "description": "email"
+          }
+        ],
+        "description": "Find User By Email",
+        "summary": "Find User By Email",
+        "responses": {
+          "200": {
+            "description": "Success Find User By Email",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/UserDetail"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/masterwilayah/ref-negara": {
+      "get": {
+        "tags": [
+          "Master Wilayah"
+        ],
+        "description": "Find Negara",
+        "summary": "Find Negara",
+        "responses": {
+          "200": {
+            "description": "Success Find Negara",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "negara_id": {
+                            "type": "integer"
+                          },
+                          "sortname": {
+                            "type": "string"
+                          },
+                          "negara": {
+                            "type": "string"
+                          },
+                          "phone_code": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Master Wilayah"
+        ],
+        "description": "Create Negara",
+        "summary": "Create Negara",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "negara_id": {
+                    "type": "integer"
+                  },
+                  "sortname": {
+                    "type": "string"
+                  },
+                  "negara": {
+                    "type": "string"
+                  },
+                  "phone_code": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success Create Negara",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "negara_id": {
+                          "type": "integer"
+                        },
+                        "sortname": {
+                          "type": "string"
+                        },
+                        "negara": {
+                          "type": "string"
+                        },
+                        "phone_code": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/masterwilayah/ref-provinsi": {
+      "get": {
+        "tags": [
+          "Master Wilayah"
+        ],
+        "description": "Find Provinsi",
+        "summary": "Find Provinsi",
+        "responses": {
+          "200": {
+            "description": "Success Find Provinsi",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "provinsi_id": {
+                            "type": "integer"
+                          },
+                          "negara_id": {
+                            "type": "integer"
+                          },
+                          "provinsi": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/masterwilayah/ref-provinsi/{negaraId}": {
+      "get": {
+        "tags": [
+          "Master Wilayah"
+        ],
+        "parameters": [
+          {
+            "name": "negaraId",
+            "in": "path",
+            "description": "negaraId"
+          }
+        ],
+        "description": "Find Provinsi By Negara Id",
+        "summary": "Find Provinsi By Negara Id",
+        "responses": {
+          "200": {
+            "description": "Success Find Provinsi By Negara Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "provinsi_id": {
+                            "type": "integer"
+                          },
+                          "negara_id": {
+                            "type": "integer"
+                          },
+                          "provinsi": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Master Wilayah"
+        ],
+        "parameters": [
+          {
+            "name": "negaraId",
+            "in": "path",
+            "description": "negaraId"
+          }
+        ],
+        "description": "Create Provinsi By Negara Id",
+        "summary": "Create Provinsi By Negara Id",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "provinsi_id": {
+                    "type": "integer"
+                  },
+                  "provinsi": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success Create Provinsi By Negara Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "provinsi_id": {
+                          "type": "integer"
+                        },
+                        "negara_id": {
+                          "type": "integer"
+                        },
+                        "provinsi": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/masterwilayah/ref-kota/{provinsiId}": {
+      "get": {
+        "tags": [
+          "Master Wilayah"
+        ],
+        "parameters": [
+          {
+            "name": "provinsiId",
+            "in": "path",
+            "description": "provinsiId"
+          }
+        ],
+        "description": "Find Kota By Provinsi Id",
+        "summary": "Find Kota By Provinsi Id",
+        "responses": {
+          "200": {
+            "description": "Success Find Kota By Provinsi Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "kota_id": {
+                            "type": "integer"
+                          },
+                          "provinsi_id": {
+                            "type": "integer"
+                          },
+                          "kota": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Master Wilayah"
+        ],
+        "parameters": [
+          {
+            "name": "provinsiId",
+            "in": "path",
+            "description": "provinsiId"
+          }
+        ],
+        "description": "Create Kota By Provinsi Id",
+        "summary": "Create Kota By Provinsi Id",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "kota_id": {
+                    "type": "integer"
+                  },
+                  "kota": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success Create Kota By Provinsi Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "kota_id": {
+                          "type": "integer"
+                        },
+                        "provinsi_id": {
+                          "type": "integer"
+                        },
+                        "kota": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/masterwilayah/ref-kecamatan/{kotaId}": {
+      "get": {
+        "tags": [
+          "Master Wilayah"
+        ],
+        "parameters": [
+          {
+            "name": "kotaId",
+            "in": "path",
+            "description": "kotaId"
+          }
+        ],
+        "description": "Find Kecamatan By Kota Id",
+        "summary": "Find Kecamatan By Kota Id",
+        "responses": {
+          "200": {
+            "description": "Success Find Kecamatan By Kota Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "kecamatan_id": {
+                            "type": "integer"
+                          },
+                          "kota_id": {
+                            "type": "integer"
+                          },
+                          "kecamatan": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Master Wilayah"
+        ],
+        "parameters": [
+          {
+            "name": "kotaId",
+            "in": "path",
+            "description": "kotaId"
+          }
+        ],
+        "description": "Create Kecamatan By Kota Id",
+        "summary": "Create Kecamatan By Kota Id",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "kecamatan_id": {
+                    "type": "integer"
+                  },
+                  "kecamatan": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success Create Kecamatan By Kota Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "kecamatan_id": {
+                          "type": "integer"
+                        },
+                        "kota_id": {
+                          "type": "integer"
+                        },
+                        "kecamatan": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/masterwilayah/ref-kelurahan/{kecamatanId}": {
+      "get": {
+        "tags": [
+          "Master Wilayah"
+        ],
+        "parameters": [
+          {
+            "name": "kecamatanId",
+            "in": "path",
+            "description": "kecamatanId"
+          }
+        ],
+        "description": "Find Kelurahan By Kecamatan Id",
+        "summary": "Find Kelurahan By Kecamatan Id",
+        "responses": {
+          "200": {
+            "description": "Success Find Kelurahan By Kecamatan Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "kelurahan_id": {
+                            "type": "integer"
+                          },
+                          "kecamatan_id": {
+                            "type": "integer"
+                          },
+                          "kelurahan": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Master Wilayah"
+        ],
+        "parameters": [
+          {
+            "name": "kecamatanId",
+            "in": "path",
+            "description": "kecamatanId"
+          }
+        ],
+        "description": "Create Kelurahan By Kecamatan Id",
+        "summary": "Create Kelurahan By Kecamatan Id",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "kelurahan_id": {
+                    "type": "integer"
+                  },
+                  "kelurahan": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success Create Kelurahan By Kecamatan Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "kelurahan_id": {
+                          "type": "integer"
+                        },
+                        "kecamatan_id": {
+                          "type": "integer"
+                        },
+                        "kelurahan": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UserDetail": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "nik": {
+            "type": "string"
+          },
+          "nama_karyawan": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "telepon": {
+            "type": "string"
+          },
+          "alamat": {
+            "type": "string"
+          },
+          "cabang_id": {
+            "type": "integer"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "created_by_id": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

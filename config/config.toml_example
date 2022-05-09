@@ -1,0 +1,19 @@
+
+
+[server]
+hostport=""
+
+[jwt]
+secretkey=""
+
+[database]
+hostport=""
+username=""
+password=""
+database=""
+
+[redis]
+hostport=
+password=""
+dbnumber=1
+ttl=1 # 10 menit
